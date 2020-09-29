@@ -30,7 +30,7 @@ func main() {
 		s, err := ioutil.ReadFile(fileName)
 		secretBytes = s
 		if err != nil {
-			fmt.Println("打开密钥文件失败，请使用 dadaauth -s <secret> 重新设置密钥", err)
+			fmt.Println("打开密钥文件失败，请使用 'dadaauth -s <secret>' 重新设置密钥", err)
 			return
 		}
 	}
