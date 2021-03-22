@@ -11,16 +11,17 @@ import (
 )
 
 // 定义命令行参数对应的变量
-var Secret = flag.String("s", "", "请输入你的登录secret")
+var secret = flag.String("s", "", "请输入你的登录secret")
+var index = flag.String("i", "", "序号")
 
 func main() {
 	flag.Parse()
-	fileName := os.Getenv("HOME") + "/.auth_secret"
+	fileName := os.Getenv("HOME") + "/.auth_secret" + *index
 	//fmt.Println(fileName)
 	var secretBytes []byte
-	if *Secret != "" {
+	if *secret != "" {
 		autoCreateFileIfNotExist(fileName)
-		secretBytes = []byte(*Secret)
+		secretBytes = []byte(*secret)
 		err := ioutil.WriteFile(fileName, secretBytes, 0644)
 		if err != nil {
 			fmt.Println(err)
@@ -30,7 +31,7 @@ func main() {
 		s, err := ioutil.ReadFile(fileName)
 		secretBytes = s
 		if err != nil {
-			fmt.Println("打开密钥文件失败，请使用 'dadaauth -s <secret>' 重新设置密钥", err)
+			fmt.Println("打开密钥文件失败，请使用 'dadaauth -s <secret> -i x' 重新设置密钥", err)
 			return
 		}
 	}
